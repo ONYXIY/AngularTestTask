@@ -1,0 +1,15 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(to bottom, rgba(0, 123, 255, 0.7), rgba(0, 123, 255, 0.001));
+    color: #fff;
+  
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  }
+  

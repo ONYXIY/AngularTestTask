@@ -5,6 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { HeaderComponent } from './components/UI/header/header.component';
+import { PostListComponent } from './components/posts/post-list/post-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 
@@ -19,6 +22,8 @@ import { HeaderComponent } from './components/UI/header/header.component';
     AppRoutingModule,
     MainPageComponent,
     HeaderComponent,
+    PostListComponent,
+    BrowserAnimationsModule
 
   ],
   exports:[],

@@ -1,43 +1,42 @@
 <div class="container">
-    <div class="login-form">
-      <h1>{{ needRegister ? 'Register' : 'Login' }}</h1>
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <ng-container *ngIf="!needRegister">
-          <mat-form-field appearance="fill">
-            <mat-label>Username</mat-label>
-            <input matInput type="text" formControlName="username"/>
-          </mat-form-field>
-      
-          <mat-form-field appearance="fill">
-            <mat-label>Password</mat-label>
-            <input matInput type="password" formControlName="password" />
-          </mat-form-field>
-      
-          <button mat-raised-button color="primary" type="submit">Login</button>
-        </ng-container>
-  
-        <ng-container *ngIf="needRegister">
-          <mat-form-field appearance="fill">
-            <mat-label>Username</mat-label>
-            <input matInput type="text" formControlName="username"/>
-          </mat-form-field>
-      
-          <mat-form-field appearance="fill">
-            <mat-label>Email</mat-label>
-            <input matInput type="email"/>
-          </mat-form-field>
-      
-          <mat-form-field appearance="fill">
-            <mat-label>Password</mat-label>
-            <input matInput type="password" formControlName="password" />
-          </mat-form-field>
-      
-          <button mat-raised-button color="primary" type="submit">Register</button>
-        </ng-container>
-      </form>
-      <p class="registerBtn" (click)="registerToggle()">
-        {{ needRegister ? 'Back to Login' : 'Create an account?' }}
-      </p>
-    </div>
+  <div class="login-form">
+    <h1>{{ needRegister ? 'Register' : 'Login' }}</h1>
+    <form [formGroup]="authForm" (ngSubmit)="submitForm()">
+      <ng-container *ngIf="!needRegister">
+        <mat-form-field appearance="fill">
+          <mat-label>Username</mat-label>
+          <input matInput type="text" formControlName="userName" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password"  />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" (click)="login()">Login</button>
+      </ng-container>
+
+      <ng-container *ngIf="needRegister">
+        <mat-form-field appearance="fill">
+          <mat-label>Username</mat-label>
+          <input matInput type="text" formControlName="userName" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit">Register</button>
+      </ng-container>
+    </form>
+    <p class="registerBtn" (click)="toggleForm()">
+      {{ needRegister ? 'Back to Login' : 'Create an account?' }}
+    </p>
   </div>
-  
+</div>

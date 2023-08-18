@@ -1,26 +1,41 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from './user.services';
-
+import { HttpClient } from '@angular/common/http';
+import * as jwt from 'jsonwebtoken';
+import { ILogin, IRegistration } from '../interface/user.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
-  public registrationForm: FormGroup;
+  private readonly TOKEN_KEY = 'token';
+  private secretKey = 'my_secret_key';
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
-    this.registrationForm = this.fb.group({
-      username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
-    });
+  constructor(private http: HttpClient) {}
+
+  register(user: IRegistration): void {
+    const token = jwt.sign({ user }, this.secretKey);
+    localStorage.setItem(this.TOKEN_KEY, token);
   }
 
-  onSubmit(): void {
-    if (this.registrationForm.valid) {
-      const user = this.registrationForm.value;
-      this.userService.registerUser(user);
+  login(user: ILogin): void {
+    const token = jwt.sign({ user }, this.secretKey);
+    localStorage.setItem(this.TOKEN_KEY, token);
+  }
+
+  logout(): void {
+    localStorage.removeItem(this.TOKEN_KEY);
+  }
+
+  isLoggedIn(): boolean {
+    const token = localStorage.getItem(this.TOKEN_KEY);
+    if (token) {
+      try {
+        jwt.verify(token, this.secretKey);
+        return true;
+      } catch (error) {
+        return false;
+      }
     }
+    return false;
   }
 }

@@ -34,7 +34,7 @@
               "src/styles.scss"
             ],
             "scripts": [],
-            "baseHref": "/angular-task/"
+            "baseHref": "/AngularTestTask/"
           },
           "configurations": {
             "production": {
@@ -51,7 +51,7 @@
                 }
               ],
               "outputHashing": "all",
-              "baseHref": "/angular-task/"
+              "baseHref": "/AngularTestTask/"
             },
             "development": {
               "buildOptimizer": false,
@@ -60,7 +60,7 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true,
-              "baseHref": "/angular-task/"
+              "baseHref": "/AngularTestTask/"
             }
           },
           "defaultConfiguration": "production"

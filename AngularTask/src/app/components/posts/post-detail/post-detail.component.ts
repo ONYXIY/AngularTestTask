@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IPost } from 'src/app/interface/Post.interface';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';

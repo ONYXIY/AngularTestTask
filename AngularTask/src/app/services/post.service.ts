@@ -3,9 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IPost } from '../interface/Post.interface';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PostService {
   private readonly api = 'https://jsonplaceholder.typicode.com/posts';

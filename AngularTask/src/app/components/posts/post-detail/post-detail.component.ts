@@ -1,21 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IPost } from 'src/app/interface/Post.interface';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
-import { Observable } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-post-detail',
   standalone: true,
-  imports: [CommonModule, MatCardModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, RouterModule],
   templateUrl: './post-detail.component.html',
-  styleUrls: ['./post-detail.component.scss']
+  styleUrls: ['./post-detail.component.scss'],
 })
 export class PostDetailComponent implements OnInit {
-  public post$!: Observable<IPost>;
-  postId!: number;
+  @Input() post!: IPost;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,9 +22,11 @@ export class PostDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      this.postId = Number(params.get('id'));
-      this.post$ = this.postService.getPostById(this.postId);
+    this.route.paramMap.subscribe((params) => {
+      const postId = Number(params.get('id'));
+      this.postService.getPostById(postId).subscribe((data) => {
+        this.post = data;
+      });
     });
   }
 }

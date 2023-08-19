@@ -15,19 +15,16 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [
-    CommonModule,
-    NgFor,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatInputModule,
-  ],
+  imports: [CommonModule, NgFor, ReactiveFormsModule, MatFormFieldModule, MatButtonModule, MatInputModule],
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent {
-  constructor(private fb: FormBuilder, private auth: AuthServiceService, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private auth: AuthServiceService,
+    private router: Router
+  ) {}
 
   public authForm!: FormGroup;
   public needRegister: boolean = false;
@@ -36,11 +33,11 @@ export class AuthComponent {
     this.authForm = this.fb.group({
       userName: ['', Validators.required],
       password: ['', Validators.required],
-      email: ['', Validators.email]
+      email: ['', Validators.email],
     });
   }
 
-  submitForm(): void {
+  public submitForm(): void {
     if (this.authForm.valid) {
       if (this.needRegister) {
         this.auth.registerUser(this.authForm.value);
@@ -54,13 +51,12 @@ export class AuthComponent {
     }
   }
 
-  toggleForm(): void {
+  public toggleForm(): void {
     this.needRegister = !this.needRegister;
     this.authForm.reset();
   }
 
-  isUserLoggedIn(): boolean {
+  public isUserLoggedIn(): boolean {
     return this.auth.isUserLoggedIn();
   }
 }
-

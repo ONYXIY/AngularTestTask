@@ -34,7 +34,7 @@
               "src/styles.scss"
             ],
             "scripts": [],
-            "baseHref": "/angular-task/" // Добавлено
+            "baseHref": "/angular-task/"
           },
           "configurations": {
             "production": {

@@ -33,7 +33,8 @@
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "baseHref": "/angular-task/" // Добавлено
           },
           "configurations": {
             "production": {
@@ -49,7 +50,8 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "baseHref": "/angular-task/"
             },
             "development": {
               "buildOptimizer": false,
@@ -57,7 +59,8 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "baseHref": "/angular-task/"
             }
           },
           "defaultConfiguration": "production"

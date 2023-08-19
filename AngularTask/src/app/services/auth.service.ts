@@ -1,41 +1,63 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import * as jwt from 'jsonwebtoken';
-import { ILogin, IRegistration } from '../interface/user.interface';
+import { Injectable } from "@angular/core";
+import { ILogin, IRegistration } from "../interface/user.interface";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
-  private readonly TOKEN_KEY = 'token';
-  private secretKey = 'my_secret_key';
-
-  constructor(private http: HttpClient) {}
-
-  register(user: IRegistration): void {
-    const token = jwt.sign({ user }, this.secretKey);
-    localStorage.setItem(this.TOKEN_KEY, token);
+  private userData = {
+    usersKey: 'users',
+    tokenKey: 'token'
   }
 
-  login(user: ILogin): void {
-    const token = jwt.sign({ user }, this.secretKey);
-    localStorage.setItem(this.TOKEN_KEY, token);
-  }
+  constructor(private router: Router) {}
 
-  logout(): void {
-    localStorage.removeItem(this.TOKEN_KEY);
+  registerUser(user: IRegistration): void {
+    const users = this.getUsers(); 
+    users.push(user);
+    this.saveUsers(users); 
+    localStorage.setItem(this.userData.tokenKey, Math.random().toString()); 
+    this.router.navigate(['posts']);
   }
-
-  isLoggedIn(): boolean {
-    const token = localStorage.getItem(this.TOKEN_KEY);
-    if (token) {
-      try {
-        jwt.verify(token, this.secretKey);
-        return true;
-      } catch (error) {
-        return false;
-      }
+  
+  loginUser(user: ILogin): boolean {
+    const users = this.getUsers();
+    const matchingUser = users.find(u => u.userName === user.userName && u.password === user.password);
+    
+    if (matchingUser) {
+      localStorage.getItem(this.userData.usersKey);
+      localStorage.setItem(this.userData.tokenKey, Math.random().toString()); // Добавляем токен при успешном входе
+      return true;
     }
+    
     return false;
+  }
+  
+  
+  logoutUser(): void {
+    const confirmation = confirm('Do you want to logout?');
+    if (confirmation){
+    localStorage.removeItem(this.userData.tokenKey); 
+    this.router.navigate(['auth']);
+    }
+  }
+  
+
+  isUserLoggedIn(): boolean {
+    return !!localStorage.getItem(this.userData.tokenKey);
+  }
+  private getUsers(): IRegistration[] {
+    const usersData = localStorage.getItem(this.userData.usersKey);
+    return usersData ? JSON.parse(usersData) : [];
+  }
+  
+  private saveUsers(users: IRegistration[]): void {
+    localStorage.setItem(this.userData.usersKey, JSON.stringify(users));
+  }
+  
+  
+  public getToken(): string | null {
+    return localStorage.getItem(this.userData.tokenKey);
   }
 }
